@@ -1,0 +1,222 @@
+#Needed for i3-gaps
+#hide_edge_borders both
+for_window [class="^.*"] border pixel 1
+gaps inner 5
+gaps outer 5
+font pango:mono 12
+set $mod Mod4
+set $mod1 Mod1
+set $term urxvt
+
+floating_modifier Mod1
+#######################Autorun APP###############################
+#starup with numlock
+exec --no-startup-id numlockx
+#Run fcitx
+exec --no-startup-id fcitx
+#sync google drive with insync
+exec --no-startup-id insync start
+#start kdeconnectd and indicator-kdeconncct to recieve android notification.
+#exec --no-startup-id /usr/lib/kdeconnectd
+#exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec xrandr --output eDP1 --auto --output HDMI1 --auto --right-of eDP1
+exec xfce4-power-manager
+exec i3-msg "workspace 10, append_layout /home/peet/.config/i3/ws10.json"
+exec telegram-desktop
+exec chromium --app=https://web.wechat.com
+exec xbacklight -set 60
+exec feh --randomize --bg-fill ~/Pictures/wallpapers/* 
+#exec /usr/lib/baidunetdisk/baidunetdisk --no-sandbox 
+exec syncthing -no-browser
+exec nextcloud
+
+
+
+#twmn tilling windows notification
+#exec_always --no-startup-id twmnd
+exec_always --no-startup-id dunst
+bar {
+	font pango:Inconsolata 11
+	output	eDP1
+	position top
+	tray_output	eDP1
+	status_command /usr/bin/bumblebee-status -m weather date time cpu sensors nic pasink -p time.format="%H:%M" date.format="%a, %b %d, %Y" nic.format="{state}{ssid}" -t iceberg-dark-powerline
+}
+bar {
+	font pango:Inconsolate 11
+	output HDMI1
+	position top
+	status_command /usr/bin/bumblebee-status -m weather date time -p time.format="%H:%M" date.format="%a, %b %d, %Y" -t iceberg-dark-powerline
+}
+# For spotify:
+set $music --no-startup-id spotify
+set $pause --no-startup-id sp play
+set $next --no-startup-id sp next
+set $prev --no-startup-id sp prev
+
+#For PULSEAUDIO/PAMIXER
+set $inc --no-startup-id pamixer -i 2
+set $dec --no-startup-id pamixer -d 2
+set $mute --no-startup-id pamixer -t
+
+######################### Application Run###############################
+bindsym $mod+Return 		exec $term
+bindsym $mod+q			kill
+bindsym $mod+w			exec --no-startup-id qutebrowser
+bindsym $mod+Shift+w		exec --no-startup-id chromium
+bindsym $mod+Ctrl+w		exec --no-startup-id firefox
+bindsym $mod+e			exec thunderbird
+bindsym $mod+r 			exec $term -e ranger
+bindsym $mod+Shift+r		exec --no-startup-id pcmanfm
+bindsym $mod+space		exec rofi -show drun
+bindsym $mod+m			exec --no-startup-id $music
+bindsym $mod+s			exec $term -fn "xft:TlwgMono-Oblique:size=20" -e newsboat 
+bindsym $mod+t			exec chromium --profile-directory=Default --app-id=pmkmmomfajmjnhpmlgabimlabedaolch
+
+bindsym $mod+apostrophe		split horizontal ;; exec $term
+bindsym $mod+slash		split vertical ;; exec $term
+
+bindsym $mod+F1			exec --no-startup-id $term -e nmtui
+bindsym $mod+F2			exec --no-startup-id $term -e pulsemixer
+bindsym $mod+F3			exec --no-startup-id btmenu
+bindsym $mod+F4			exec --no-startup-id mbsync -a
+bindsym $mod+F7			exec --no-startup-id udiskie-mount -a
+bindsym $mod+Shift+F7		exec --no-startup-id udiskie-umount -a
+
+bindsym $mod+F9			exec xrandr --output eDP1 --off --output HDMI1 --off
+bindsym $mod+F10		exec xrandr --output eDP1 --auto --output HDMI1 --off
+bindsym $mod+F11		exec xrandr --output eDP1 --auto --output HDMI1 --auto --right-of eDP1
+bindsym $mod+F12		exec xrandr --output eDP1 --off --output HDMI1 --auto
+
+######################### i3wm control key################################
+bindsym $mod+y			split toggle
+bindsym $mod+u		 	floating toggle
+bindsym $mod+i			gaps inner current plus 5
+bindsym $mod+o			gaps inner current minus 5
+bindsym $mod+p			layout tabbed
+bindsym $mod+Shift+space	focus mode_toggle
+bindsym $mod+Tab		workspace back_and_forth
+bindsym $mod+backslash		workspace next
+bindsym $mod+grave		workspace prev
+bindsym $mod+F5			restart
+bindsym $mod+f			fullscreen toggle
+
+###resize windows###
+bindsym $mod+Ctrl+h		resize shrink width 10px or 10ppt
+bindsym $mod+Ctrl+j		resize shrink height 10px or 10ppt
+bindsym $mod+Ctrl+k		resize grow height 10px or 10ppt
+bindsym $mod+Ctrl+l		resize grow width 10px or 10ppt
+###focus move###
+bindsym $mod+h			focus left
+bindsym $mod+j			focus down
+bindsym $mod+k			focus up
+bindsym $mod+l			focus right
+###move window###
+bindsym $mod+Shift+h		move left 30
+bindsym $mod+Shift+j		move down 30
+bindsym $mod+Shift+k		move up 30
+bindsym $mod+Shift+l		move right 30
+#workspace
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1			workspace $ws1
+bindsym $mod+2			workspace $ws2
+bindsym $mod+3			workspace $ws3
+bindsym $mod+4			workspace $ws4
+bindsym $mod+5			workspace $ws5
+bindsym $mod+6			workspace $ws6
+bindsym $mod+7			workspace $ws7
+bindsym $mod+8			workspace $ws8
+bindsym $mod+9			workspace $ws9
+bindsym $mod+0			workspace $ws10
+
+bindsym $mod+Shift+1		move container to workspace $ws1
+bindsym $mod+Shift+2		move container to workspace $ws2
+bindsym $mod+Shift+3		move container to workspace $ws3
+bindsym $mod+Shift+4		move container to workspace $ws4
+bindsym $mod+Shift+5		move container to workspace $ws5
+bindsym $mod+Shift+6		move container to workspace $ws6
+bindsym $mod+Shift+7		move container to workspace $ws7
+bindsym $mod+Shift+8		move container to workspace $ws8
+bindsym $mod+Shift+9		move container to workspace $ws9
+bindsym $mod+Shift+0		move container to workspace $ws10
+
+bindsym $mod+bracketleft	move container to output left
+bindsym $mod+bracketright 	move container to output right
+bindsym $mod+Shift+bracketleft	move workspace to output left
+bindsym $mod+Shift+bracketright	move workspace to output right
+
+workspace $ws1 output eDP1
+workspace $ws2 output eDP1
+workspace $ws3 output eDP1
+workspace $ws4 output eDP1
+workspace $ws5 output eDP1
+workspace $ws6 output HDMI1
+workspace $ws7 output HDMI1
+workspace $ws8 output HDMI1
+workspace $ws9 output HDMI1
+workspace $ws10 output HDMI1
+######################## System Key #####################################
+
+###Volume keys###
+bindsym $mod+plus		exec $inc
+bindsym $mod+minus		exec $dec
+bindsym $mod+Shitf+m		exec $mute
+bindsym XF86AudioLowerVolume	exec $dec
+bindsym XF86AudioRaiseVolume	exec $inc
+bindsym XF86AudioMute		exec $mute
+
+bindsym $mod+End		exec reboot
+bindsym $mod+Shift+End		exec poweroff
+
+bindsym $mod+Shift+Escape	exec i3-msg exit
+bindsym $mod+Escape		kill
+
+bindsym $mod+Home		exec --no-startup-id i3lock-fancy-dualmonitor -g
+bindsym $mod+Shift+Home		exec systemctl suspend-then-hibernate
+
+bindsym $mod+F8			exec xbacklight -dec 10
+bindsym $mod+Shift+F8		exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown 	exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp	exec xbacklight -inc 10
+
+###Spotify Control key ###
+bindsym XF86AudioPrev		exec $prev
+bindsym XF86AudioNext		exec $next
+bindsym XF86AudioPlay		exec $play
+
+bindsym Print			exec maim -s /home/peet/Pictures/Screenshot/$(date +%F)-$(date +%T).png
+bindsym Shift+Print		exec maim /home/peet/Pictures/Screenshot/F-$(date +%F)-$(date +%T).png
+######################## Focus Key #####################################
+bindsym $mod+$mod1+w		[class="qutebrowser"] focus
+bindsym $mod+$mod1+m		[class="mpv"] focus
+bindsym $mod+$mod1+t		[class="Telegram"] focus
+bindsym $mod+$mod1+l		[class="Chromium" title="LINE"] focus
+bindsym $mod+$mod1+u		[class="URxvt"] focus
+bindsym $mod+$mod1+c		[class="Chromium" instance="web.wechat.com"] focus
+
+####mpv####
+for_window [class="mpv"] floating enable, resize set 700 550, move position 3137px 17px, sticky enable, border pixel 1
+
+
+#for_window [class="mpv"] resize set 700 550
+#for_window [class="mpv"] move position 1176px 675px
+#for_window [class="mpv"] sticky enable
+#for_window [class="mpv"] border pixel 1
+for_window [class="Telegram"] move window to workspace $ws10
+for_window [class="Gimp"] move window to workspace $ws5
+for_window [class="Chromium" title="LINE"] move window to workspace $ws10
+for_window [class="Thunderbird"] move window to workspace $ws9
+for_window [class="Chromium" title="WeChat/Weixin for Web"] move window to workspace $ws10
+for_window [class="Freechat"] move window to workspace $ws10
+for_window [class="baidunetdisk"] move window to workspace $ws7
