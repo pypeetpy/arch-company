@@ -1,0 +1,64 @@
+*foreground: #a8a19f
+*foreground_bold: #a8a19f
+*cursor: #a8a19f
+*background:       #1b1918
+!!*background: rgba(0, 0, 0, .7)
+
+!! black
+*color0: #1b1918
+*color8: #766e6b
+!! red
+*color1: #f22c40
+*color9: #f22c40
+!! green
+*color2: #5ab738
+*color10: #5ab738
+!! yellow
+*color3: #d5911a
+*color11: #d5911a
+!! blue
+*color4: #407ee7
+*color12: #407ee7
+!! magenta
+*color5: #6666ea
+*color13: #6666ea
+!! cyan
+*color6: #00ad9c
+*color14: #00ad9c
+!! white
+*color7: #a8a19f
+*color15: #f1efee
+
+URxvt.intensityStyles:	false
+URxvt.color12: rgb:5c/5c/ff
+!!URxvt.background:       [70]#1b1918
+URxvt.background:       rgba:1111/1111/1111/dddd
+URxvt.depth:		32
+URxvt.font: 		xft:TlwgMono-Oblique:size=14
+URxvt.scrollBar:	false
+URxvt.cursorColor:	white
+
+!! Extensions
+URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select
+URxvt.colorUL:		#4682B4
+!! url-select
+URxvt.keysym.M-u:	perl:url-select:select_next
+!! keyboard-select:
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+!! resize-font
+URxvt.resize-font.smaller:	C-Down
+URxvt.resize-font.bigger:	C-Up
+Xcursor.size: 20
+URxvt.url-select.launcher:  qutebrowser
+URxvt.url-select.underline: true
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+!! Matcher
+URxvt.url-launcher:	linkhandler
+URxvt.matcher.button:	1
+
+
+URxvt*inheritPixmap: true
+URxvt*transparent: true
+! URxvt*shading: 0 to 99 darkens, 101 to 200 lightens
+URxvt*shading: 25
